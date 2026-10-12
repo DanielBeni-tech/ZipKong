@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ZipKong — Compresseur de fichiers</title>
+<title>CoCo — Compress and Convert</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
@@ -11,15 +11,15 @@
 <body>
 <div class="bg-orbs"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
 <header class="nav"><div class="nav-inner">
-<div class="logo"><span class="logo-mark">◈</span> ZipKong <span class="badge">PRO</span></div>
+<div class="logo"><span class="logo-mark">Co</span> CoCo <span class="badge">Compress + Convert</span></div>
 <nav class="nav-links"><a href="#compresseur" class="active">Compresseur</a><a href="#convertisseur">Convertisseur</a><a href="#formats">Formats</a></nav>
 <div class="nav-cta"><span class="dot"></span> 100% local &amp; sécurisé</div>
 </div></header>
 <main>
 <section class="hero">
-<p class="pill">Compression instantanée — aucun upload serveur</p>
-<h1>Compressez <span class="grad">n'importe quel fichier</span><br>en quelques secondes.</h1>
-<p class="sub">Glissez votre fichier, visualisez-le, compressez avec notre presseur animé, puis téléchargez après paiement.</p>
+<p class="pill">Compression + Conversion — aucun upload serveur</p>
+<h1><span class="grad">Compressez</span> ou <span class="grad">convertissez</span><br>n'importe quel fichier.</h1>
+<p class="sub">Deux outils separes : le compresseur reduit la taille de vos fichiers, le convertisseur change leur format. Choisissez votre section ci-dessous.</p>
 <div class="hero-stats"><div><strong>72%</strong><span>taille gagnée en moyenne</span></div><div><strong>0 envoi</strong><span>fichiers traités localement</span></div><div><strong>24/7</strong><span>disponible sans compte</span></div></div>
 </section>
 <section id="compresseur" class="card">
@@ -47,8 +47,9 @@
 <div class="res-actions"><button id="downloadBtn" class="btn-download"> Télécharger le fichier compressé</button>
 <p class="res-note">Cliquez sur Télécharger pour telecharger votre fichier.</p></div>
 </div>
+</section>
 
-<!-- CONVERTISSEUR UNIVERSEL -->
+<!-- CONVERTISSEUR UNIVERSEL : uniquement conversion, jamais compression -->
 <section id="convertisseur" class="card">
 <div class="card-head"><div><h2>Convertisseur universel</h2><p>Uploadez un fichier, choisissez le format de sortie, convertissez</p></div>
 <div class="steps"><span class="step on" id="c1">1 Fichier</span><span class="step" id="c2">2 Conversion</span><span class="step" id="c3">3 Telechargement</span></div></div>
@@ -76,9 +77,8 @@
 </div>
 </section>
 
-</section>
 <section id="formats" class="formats">
-<h2>Il compresse <span class="grad">vraiment tout</span></h2>
+<h2>CoCo fait <span class="grad">les deux, separement</span></h2>
 <div class="fmt-grid">
 <div class="fmt">🖼️<strong>Images</strong><span>JPG, PNG, WEBP, GIF recompressées</span></div>
 <div class="fmt">🎬<strong>Vidéos & Audio</strong><span>MP4, WEBM, MP3, WAV optimisés</span></div>
@@ -86,7 +86,7 @@
 <div class="fmt">📦<strong>Archives & divers</strong><span>ZIP, JSON, CSV et autres</span></div>
 </div>
 </section>
-<footer>© 2026 ZipKong — Vos fichiers ne quittent jamais votre appareil </footer>
+<footer>© 2026 CoCo - Compress and Convert — Vos fichiers ne quittent jamais votre appareil </footer>
 </main>
 <div id="compressModal" class="modal hidden"><div class="modal-card press-card">
 <h3>Compression en cours…</h3><p class="modal-sub" id="pressFileName">fichier</p>

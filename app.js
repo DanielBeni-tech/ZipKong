@@ -1,4 +1,4 @@
-// ZipKong - logique applicative (100% locale, sans serveur)
+// CoCo - Compress and Convert (100% locale, sans serveur)
 const $ = (id) => document.getElementById(id);
 const dropzone=$('dropzone'),fileInput=$('fileInput'),browseBtn=$('browseBtn');
 const filePreview=$('filePreview'),fpMedia=$('fpMedia'),fpName=$('fpName'),fpType=$('fpType'),fpSize=$('fpSize'),fpExt=$('fpExt');
