@@ -12,7 +12,7 @@
 <div class="bg-orbs"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
 <header class="nav"><div class="nav-inner">
 <div class="logo"><span class="logo-mark">◈</span> ZipKong <span class="badge">PRO</span></div>
-<nav class="nav-links"><a href="#compresseur" class="active">Compresseur</a><a href="#formats">Formats</a></nav>
+<nav class="nav-links"><a href="#compresseur" class="active">Compresseur</a><a href="#convertisseur">Convertisseur</a><a href="#formats">Formats</a></nav>
 <div class="nav-cta"><span class="dot"></span> 100% local &amp; sécurisé</div>
 </div></header>
 <main>
@@ -47,6 +47,35 @@
 <div class="res-actions"><button id="downloadBtn" class="btn-download"> Télécharger le fichier compressé</button>
 <p class="res-note">Cliquez sur Télécharger pour telecharger votre fichier.</p></div>
 </div>
+
+<!-- CONVERTISSEUR UNIVERSEL -->
+<section id="convertisseur" class="card">
+<div class="card-head"><div><h2>Convertisseur universel</h2><p>Uploadez un fichier, choisissez le format de sortie, convertissez</p></div>
+<div class="steps"><span class="step on" id="c1">1 Fichier</span><span class="step" id="c2">2 Conversion</span><span class="step" id="c3">3 Telechargement</span></div></div>
+<div id="convDropzone" class="dropzone">
+<div class="dz-icon">Conv</div>
+<p class="dz-title">Glissez-deposez votre fichier a convertir ici</p>
+<p class="dz-sub">ou <button type="button" id="convBrowseBtn" class="link-btn">parcourez vos dossiers</button></p>
+<p class="dz-hint">Images - Audio - Texte - Docs</p>
+<input type="file" id="convFileInput" hidden />
+</div>
+<div id="convPreview" class="file-preview hidden">
+<div class="fp-media" id="convMedia"></div>
+<div class="fp-info">
+<div class="fp-top"><h3 id="convName">fichier</h3><span id="convType" class="chip">-</span></div>
+<div class="fp-meta"><div><span>Taille</span><strong id="convSize">-</strong></div><div><span>Format source</span><strong id="convExt">-</strong></div><div><span>Statut</span><strong class="ok">Pret</strong></div></div>
+<div class="conv-formats"><p class="conv-label">Convertir vers :</p><div id="convOptions" class="conv-options"></div></div>
+<div class="fp-actions"><button id="convertBtn" class="btn-primary">Convertir maintenant</button><button id="convChangeBtn" class="btn-ghost">Changer</button></div>
+</div>
+<button id="convRemoveBtn" class="fp-close">X</button>
+</div>
+<div id="convResultBox" class="result hidden">
+<div class="res-row"><div class="res-stat"><span>Origine</span><strong id="convResBefore">-</strong></div><div class="res-arrow">-</div><div class="res-stat"><span>Nouveau fichier</span><strong id="convResAfter" class="grad-text">-</strong></div><div class="res-stat"><span>Taille</span><strong id="convResSize" class="green">-</strong></div></div>
+<div class="res-actions"><button id="convDownloadBtn" class="btn-download">Telecharger le fichier converti</button>
+<p class="res-note">Cliquez sur Telecharger pour debloquer votre fichier.</p></div>
+</div>
+</section>
+
 </section>
 <section id="formats" class="formats">
 <h2>Il compresse <span class="grad">vraiment tout</span></h2>
@@ -65,6 +94,13 @@
 <div class="progress"><div id="pressBar"></div></div>
 <div class="press-meta"><span id="pressPct">0%</span><span id="pressStep">Analyse du fichier…</span></div>
 </div></div>
+<div id="convModal" class="modal hidden"><div class="modal-card press-card">
+<h3>Conversion en cours</h3><p class="modal-sub" id="convModalName">fichier</p>
+<div class="conv-machine"><div class="conv-from" id="convFromExt">SRC</div><div class="conv-arrows"><span></span><span></span><span></span></div><div class="conv-file" id="convAnimFile">F</div><div class="conv-arrows"><span></span><span></span><span></span></div><div class="conv-to" id="convToExt">DST</div></div>
+<div class="progress"><div id="convBar"></div></div>
+<div class="press-meta"><span id="convPct">0%</span><span id="convStep">Lecture du fichier…</span></div>
+</div></div>
+
 <div id="payModal" class="modal hidden"><div class="modal-card pay-card">
 <button class="fp-close pay-close" id="payClose">✕</button>
 <div class="pay-lock">🔒</div>
