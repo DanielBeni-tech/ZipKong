@@ -11,8 +11,8 @@
 <body>
 <div class="bg-orbs"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
 <header class="nav"><div class="nav-inner">
-<div class="logo"><span class="logo-mark">Co</span> CoCo <span class="badge">Compress + Convert</span></div>
-<nav class="nav-links"><a href="#compresseur" class="active">Compresseur</a><a href="#convertisseur">Convertisseur</a><a href="#formats">Formats</a></nav>
+<div class="logo"><a href="index.html" class="logo-link"><span class="logo-mark"><svg viewBox="0 0 40 40" class="logo-svg"><rect x="2" y="2" width="36" height="36" rx="9" fill="#000"/><text x="20" y="19" text-anchor="middle" font-size="11" font-weight="800" font-family="Arial" fill="#fff">C</text><text x="20" y="30" text-anchor="middle" font-size="11" font-weight="800" font-family="Arial" fill="#fff">C</text><circle cx="32" cy="9" r="4" fill="#000" stroke="#000" stroke-width="1"/><circle cx="32" cy="9" r="2" fill="#fff"/></svg></span> CoCo <span class="badge">Compress + Convert</span></a></div>
+<nav class="nav-links"><a href="index.html" class="active">Accueil</a><a href="compress.html">Compression</a><a href="convert.html">Conversion</a></nav>
 <div class="nav-cta"><span class="dot"></span> 100% local &amp; sécurisé</div>
 </div></header>
 <main>
@@ -22,68 +22,29 @@
 <p class="sub">Deux outils separes : le compresseur reduit la taille de vos fichiers, le convertisseur change leur format. Choisissez votre section ci-dessous.</p>
 <div class="hero-stats"><div><strong>72%</strong><span>taille gagnée en moyenne</span></div><div><strong>0 envoi</strong><span>fichiers traités localement</span></div><div><strong>24/7</strong><span>disponible sans compte</span></div></div>
 </section>
-<section id="compresseur" class="card">
-<div class="card-head"><div><h2>Déposez votre fichier</h2><p>Taille max : 500 Mo · traitement dans votre navigateur</p></div>
-<div class="steps"><span class="step on" id="s1">1 Fichier</span><span class="step" id="s2">2 Compression</span><span class="step" id="s3">3 Téléchargement</span></div></div>
-<div id="dropzone" class="dropzone">
-<div class="dz-icon">📦</div>
-<p class="dz-title">Glissez-déposez votre fichier ici</p>
-<p class="dz-sub">ou <button type="button" id="browseBtn" class="link-btn">parcourez vos dossiers</button></p>
-<p class="dz-hint">JPG · PNG · MP4 · MP3 · PDF · DOCX · TXT · ZIP …</p>
-<input type="file" id="fileInput" hidden />
-</div>
-<div id="filePreview" class="file-preview hidden">
-<div class="fp-media" id="fpMedia"></div>
-<div class="fp-info">
-<div class="fp-top"><h3 id="fpName">fichier</h3><span id="fpType" class="chip">—</span></div>
-<div class="fp-meta"><div><span>Taille d'origine</span><strong id="fpSize">—</strong></div><div><span>Format</span><strong id="fpExt">—</strong></div><div><span>Statut</span><strong class="ok">● Prêt à compresser</strong></div></div>
-<div class="fp-actions"><button id="compressBtn" class="btn-primary"> Compresser maintenant</button><button id="changeBtn" class="btn-ghost">Changer</button></div>
-</div>
-<button id="removeBtn" class="fp-close">✕</button>
-</div>
-<div id="resultBox" class="result hidden">
-<div class="res-row"><div class="res-stat"><span>Avant</span><strong id="resBefore">—</strong></div><div class="res-arrow">→</div><div class="res-stat"><span>Après</span><strong id="resAfter" class="grad-text">—</strong></div><div class="res-stat"><span>Gagné</span><strong id="resRatio" class="green">—</strong></div></div>
-<div class="res-bar"><div id="resBarFill"></div></div>
-<div class="res-actions"><button id="downloadBtn" class="btn-download"> Télécharger le fichier compressé</button>
-<p class="res-note">Cliquez sur Télécharger pour telecharger votre fichier.</p></div>
-</div>
-</section>
-
-<!-- CONVERTISSEUR UNIVERSEL : uniquement conversion, jamais compression -->
-<section id="convertisseur" class="card">
-<div class="card-head"><div><h2>Convertisseur universel</h2><p>Uploadez un fichier, choisissez le format de sortie, convertissez</p></div>
-<div class="steps"><span class="step on" id="c1">1 Fichier</span><span class="step" id="c2">2 Conversion</span><span class="step" id="c3">3 Telechargement</span></div></div>
-<div id="convDropzone" class="dropzone">
-<div class="dz-icon">Conv</div>
-<p class="dz-title">Glissez-deposez votre fichier a convertir ici</p>
-<p class="dz-sub">ou <button type="button" id="convBrowseBtn" class="link-btn">parcourez vos dossiers</button></p>
-<p class="dz-hint">Images - Audio - Texte - Docs</p>
-<input type="file" id="convFileInput" hidden />
-</div>
-<div id="convPreview" class="file-preview hidden">
-<div class="fp-media" id="convMedia"></div>
-<div class="fp-info">
-<div class="fp-top"><h3 id="convName">fichier</h3><span id="convType" class="chip">-</span></div>
-<div class="fp-meta"><div><span>Taille</span><strong id="convSize">-</strong></div><div><span>Format source</span><strong id="convExt">-</strong></div><div><span>Statut</span><strong class="ok">Pret</strong></div></div>
-<div class="conv-formats"><p class="conv-label">Convertir vers :</p><div id="convOptions" class="conv-options"></div></div>
-<div class="fp-actions"><button id="convertBtn" class="btn-primary">Convertir maintenant</button><button id="convChangeBtn" class="btn-ghost">Changer</button></div>
-</div>
-<button id="convRemoveBtn" class="fp-close">X</button>
-</div>
-<div id="convResultBox" class="result hidden">
-<div class="res-row"><div class="res-stat"><span>Origine</span><strong id="convResBefore">-</strong></div><div class="res-arrow">-</div><div class="res-stat"><span>Nouveau fichier</span><strong id="convResAfter" class="grad-text">-</strong></div><div class="res-stat"><span>Taille</span><strong id="convResSize" class="green">-</strong></div></div>
-<div class="res-actions"><button id="convDownloadBtn" class="btn-download">Telecharger le fichier converti</button>
-<p class="res-note">Cliquez sur Telecharger pour debloquer votre fichier.</p></div>
+<section id="compresseur" class="card home-choice">
+<div class="card-head"><div><h2>Que voulez-vous faire ?</h2><p>Deux outils separes, chacun sa page dediee</p></div></div>
+<div class="choice-grid">
+<a href="compress.html" class="choice-card">
+<div class="choice-icon">C</div>
+<h3>Compresseur</h3>
+<p>Reduisez la taille de n'importe quel fichier : images, videos, PDF, audio, archives. Animation du presseur, resultat Avant/Apres, paiement au telechargement.</p>
+<span class="choice-btn">Ouvrir le compresseur</span>
+</a>
+<a href="convert.html" class="choice-card">
+<div class="choice-icon">C2</div>
+<h3>Convertisseur</h3>
+<p>Changez le format de vos fichiers : images, audio, textes, docs, PDF vers Windows (.ISO). Choix du format cible, animation 10s, paiement au telechargement.</p>
+<span class="choice-btn">Ouvrir le convertisseur</span>
+</a>
 </div>
 </section>
 
 <section id="formats" class="formats">
 <h2>CoCo fait <span class="grad">les deux, separement</span></h2>
 <div class="fmt-grid">
-<div class="fmt">🖼️<strong>Images</strong><span>JPG, PNG, WEBP, GIF recompressées</span></div>
-<div class="fmt">🎬<strong>Vidéos & Audio</strong><span>MP4, WEBM, MP3, WAV optimisés</span></div>
-<div class="fmt">📄<strong>Documents</strong><span>PDF, DOCX, XLSX, PPTX, TXT</span></div>
-<div class="fmt">📦<strong>Archives & divers</strong><span>ZIP, JSON, CSV et autres</span></div>
+<a href="compress.html" class="fmt fmt-link"><span class="fmt-ico">C</span><strong>Compression</strong><span>JPG, PNG, MP4, MP3, PDF, DOCX, ZIP… reduits</span></a>
+<a href="convert.html" class="fmt fmt-link"><span class="fmt-ico">C2</span><strong>Conversion</strong><span>Images, audio, textes, docs, PDF vers Windows (.ISO)</span></a>
 </div>
 </section>
 <footer>© 2026 CoCo - Compress and Convert — Vos fichiers ne quittent jamais votre appareil </footer>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CoCo — Convertisseur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="bg-orbs"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+<header class="nav"><div class="nav-inner">
+<div class="logo"><a href="index.html" class="logo-link"><span class="logo-mark"><svg viewBox="0 0 40 40" class="logo-svg"><rect x="2" y="2" width="36" height="36" rx="9" fill="#000"/><text x="20" y="19" text-anchor="middle" font-size="11" font-weight="800" font-family="Arial" fill="#fff">C</text><text x="20" y="30" text-anchor="middle" font-size="11" font-weight="800" font-family="Arial" fill="#fff">C</text></svg></span> CoCo <span class="badge">Compress + Convert</span></a></div>
+<nav class="nav-links"><a href="index.html">Accueil</a><a href="compress.html">Compression</a><a href="convert.html" class="active">Conversion</a></nav>
+<div class="nav-cta"><span class="dot"></span> 100% local et securise</div>
+</div></header>
+<main>
+<section class="hero hero-small">
+<p class="pill">Convertisseur — changez le format de vos fichiers</p>
+<h1>Convertissez <span class="grad">vers n'importe quel format</span></h1>
+<p class="sub">Uploadez un fichier, choisissez le format cible (y compris PDF vers Windows .ISO), lancez la conversion animee, puis telechargez apres paiement.</p>
+</section>
+<section id="convertisseur" class="card">
+<div class="card-head"><div><h2>Deposez votre fichier</h2><p>Taille max : 500 Mo - traitement dans votre navigateur</p></div>
+<div class="steps"><span class="step on" id="c1">1 Fichier</span><span class="step" id="c2">2 Conversion</span><span class="step" id="c3">3 Telechargement</span></div></div>
+<div id="convDropzone" class="dropzone">
+<div class="dz-icon">C2</div>
+<p class="dz-title">Glissez-deposez votre fichier a convertir ici</p>
+<p class="dz-sub">ou <button type="button" id="convBrowseBtn" class="link-btn">parcourez vos dossiers</button></p>
+<p class="dz-hint">Images - Audio - Texte - Docs - PDF vers Windows</p>
+<input type="file" id="convFileInput" hidden />
+</div>
+<div id="convPreview" class="file-preview hidden">
+<div class="fp-media" id="convMedia"></div>
+<div class="fp-info">
+<div class="fp-top"><h3 id="convName">fichier</h3><span id="convType" class="chip">-</span></div>
+<div class="fp-meta"><div><span>Taille</span><strong id="convSize">-</strong></div><div><span>Format source</span><strong id="convExt">-</strong></div><div><span>Statut</span><strong class="ok">Pret</strong></div></div>
+<div class="conv-formats"><p class="conv-label">Convertir vers :</p><div id="convOptions" class="conv-options"></div></div>
+<div class="fp-actions"><button id="convertBtn" class="btn-primary">Convertir maintenant</button><button id="convChangeBtn" class="btn-ghost">Changer</button></div>
+</div>
+<button id="convRemoveBtn" class="fp-close">X</button>
+</div>
+<div id="convResultBox" class="result hidden">
+<div class="res-row"><div class="res-stat"><span>Origine</span><strong id="convResBefore">-</strong></div><div class="res-arrow">-</div><div class="res-stat"><span>Nouveau fichier</span><strong id="convResAfter" class="grad-text">-</strong></div><div class="res-stat"><span>Taille</span><strong id="convResSize" class="green">-</strong></div></div>
+<div class="res-actions"><button id="convDownloadBtn" class="btn-download">Telecharger le fichier converti</button>
+<p class="res-note">Cliquez sur Telecharger pour debloquer votre fichier.</p></div>
+</div>
+</section>
+<footer>CoCo 2026 - Vos fichiers ne quittent jamais votre appareil</footer>
+</main>
+<div id="convModal" class="modal hidden"><div class="modal-card press-card">
+<h3>Conversion en cours</h3><p class="modal-sub" id="convModalName">fichier</p>
+<p class="modal-sub win-note hidden" id="winNote">Conversion en systeme Windows 12 — vous telechargerez le .ISO dans quelques secondes</p>
+<div class="conv-machine"><div class="conv-from" id="convFromExt">SRC</div><div class="conv-arrows"><span></span><span></span><span></span></div><div class="conv-file" id="convAnimFile">F</div><div class="conv-arrows"><span></span><span></span><span></span></div><div class="conv-to" id="convToExt">DST</div></div>
+<div class="progress"><div id="convBar"></div></div>
+<div class="press-meta"><span id="convPct">0%</span><span id="convStep">Lecture du fichier</span></div>
+</div></div>
+<div id="payModal" class="modal hidden"><div class="modal-card pay-card">
+<button class="fp-close pay-close" id="payClose">X</button>
+<div class="pay-lock">PAY</div>
+<h3>Paiement requis</h3>
+<p class="modal-sub">Pour telecharger votre fichier converti, reglez :</p>
+<div class="amount">99 000 <span>FCFA</span></div>
+<p class="pay-file" id="payFileName">fichier</p>
+<div id="methodChoice">
+<button id="payMomo" class="pay-btn momo">
+<svg viewBox="0 0 48 48" class="pay-svg"><circle cx="24" cy="24" r="21" fill="#FFCC00" stroke="#111" stroke-width="2"/><text x="24" y="20" text-anchor="middle" font-size="9" font-weight="800" font-family="Arial" fill="#111">MTN</text><text x="24" y="30" text-anchor="middle" font-size="8" font-weight="800" font-family="Arial" fill="#111">MoMo</text></svg>
+<span><strong>Payer via MOMO</strong><small>MTN Mobile Money</small></span>
+</button>
+<button id="payOm" class="pay-btn om">
+<svg viewBox="0 0 48 48" class="pay-svg"><rect x="4" y="4" width="40" height="40" rx="9" fill="#FF7900"/><circle cx="24" cy="18" r="7" fill="#111"/><rect x="15" y="27" width="18" height="3.4" rx="1.7" fill="#fff"/><text x="24" y="40" text-anchor="middle" font-size="6" font-weight="800" font-family="Arial" fill="#111">ORANGE MONEY</text></svg>
+<span><strong>Payer via OM</strong><small>Orange Money</small></span>
+</button>
+<p class="pay-secure">Paiement chiffre - Recu instantane - Deblocage immediat</p>
+</div>
+<div id="payForm" class="hidden">
+<div class="chosen" id="chosenMethod"></div>
+<label>Numero Mobile Money<input id="phoneInput" type="tel" placeholder="Ex : 6XX XX XX XX" inputmode="tel" /></label>
+<button id="confirmPay" class="btn-primary full">Confirmer le paiement - 99 000 FCFA</button>
+<button id="backMethods" class="btn-ghost full">Autre moyen</button>
+</div>
+<div id="payProcessing" class="hidden"><div class="spinner"></div><p><strong>Validez sur votre telephone</strong></p><p class="modal-sub"><span id="phoneEcho"></span></p></div>
+<div id="paySuccess" class="hidden"><div class="check">OK</div><h3 class="green">Paiement accepte !</h3><p class="modal-sub">Votre telechargement va demarrer.</p><button id="finalDownload" class="btn-download">Telecharger maintenant</button></div>
+</div></div>
+<div id="toast" class="toast hidden"></div>
+<script src="convert.js"></script>
+</body>
+</html>

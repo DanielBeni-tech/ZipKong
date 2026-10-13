@@ -152,4 +152,19 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:26px 0 40px}
 .conv-arrows span:nth-child(3){animation-delay:.3s}
 @keyframes convdots{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1.2)}}
 
+.logo-link{text-decoration:none;color:inherit;display:flex;align-items:center;gap:8px}
+.logo-svg{width:32px;height:32px;display:block}
+.logo-mark{background:none;width:auto;height:auto}
+.hero-small{padding:36px 16px 20px}
+.choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.choice-card{background:#f4f4f4;border:2px solid #000;border-radius:16px;padding:26px 20px;text-decoration:none;color:#000;display:flex;flex-direction:column;gap:10px;transition:.2s;box-shadow:5px 5px 0 #000}
+.choice-card:hover{transform:translateY(-4px);box-shadow:8px 8px 0 #000}
+.choice-icon{font-size:15px;font-weight:800;background:#000;color:#fff;width:52px;height:52px;display:grid;place-items:center;border-radius:14px}
+.choice-card h3{font-size:20px}
+.choice-card p{font-size:14px;color:var(--mut)}
+.choice-btn{background:#000;color:#fff;font-weight:800;font-size:14px;padding:12px;border-radius:12px;text-align:center;margin-top:6px}
+.fmt-link{text-decoration:none;color:inherit}
+.fmt-ico{font-size:14px;font-weight:800;background:#000;color:#fff;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;margin:0 auto}
+.win-note{background:#000;color:#fff;font-weight:700;padding:10px 14px;border-radius:12px;margin-top:10px;font-size:13px}
+.conv-opt.iso{background:#000;color:#fff;border-color:#000}
 @media(max-width:640px){.nav-links{display:none}.file-preview{flex-direction:column}.fp-media{width:100%;height:180px}.hero{padding-top:36px}.card{padding:18px;box-shadow:5px 5px 0 #000}.press-machine{transform:scale(.9)}}
