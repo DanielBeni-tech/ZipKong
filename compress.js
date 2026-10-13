@@ -132,14 +132,24 @@ payOm.onclick=()=>chooseMethod('om');
 backMethods.onclick=()=>{payForm.classList.add('hidden');methodChoice.classList.remove('hidden');};
 confirmPay.onclick=()=>{
   const num=phoneInput.value.replace(/[\s.-]/g,'');
+  const txEl=document.getElementById('txInput');
+  const tx=txEl?txEl.value.trim():'';
   if(num.length<8){showToast('Entrez un numero valide.');phoneInput.focus();return;}
-  phoneEcho.textContent=num;
+  if(tx.length<4){showToast('Entrez l ID de transaction recu par SMS.');if(txEl)txEl.focus();return;}
+  const txEcho=document.getElementById('payTxEcho');
+  if(txEcho)txEcho.textContent='Transaction '+tx+' - '+num;
   payForm.classList.add('hidden');payProcessing.classList.remove('hidden');
-  setTimeout(()=>{
-    payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
-    paid=true;downloadBtn.textContent='Telecharger le fichier compresse';
-    setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
-  },3600);
+  fetch('/api/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({method:payMethod||'momo',number:num,txid:tx})})
+    .then(r=>r.json())
+    .then(d=>{
+      payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
+      paid=true;downloadBtn.textContent='Telecharger le fichier compresse';;
+      setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
+    })
+    .catch(()=>{
+      payProcessing.classList.add('hidden');payForm.classList.remove('hidden');
+      showToast('Serveur injoignable - reessayez.');
+    });
 };
 function doDownload(){
   if(!compressedBlob||!paid)return;

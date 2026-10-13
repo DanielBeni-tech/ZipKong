@@ -15,7 +15,7 @@ let convFile=null,convTarget='',convBlob=null,convOutName='',convPaid=false;
 function showToast(m){toast.textContent=m;toast.classList.remove('hidden');clearTimeout(toast._t);toast._t=setTimeout(()=>toast.classList.add('hidden'),3200);}
 function fmt(n){if(n===0)return'0 o';const u=['o','Ko','Mo','Go'];let i=0;while(n>=1024&&i<3){n/=1024;i++;}return(n>=100?n.toFixed(0):n.toFixed(1))+' '+u[i];}
 function setSteps(a,b,c){s1.classList.toggle('on',a);s2.classList.toggle('on',b);s3.classList.toggle('on',c);}
-function iconFor(f){const t=f.type||'';if(t.startsWith('image/'))return'🖼️';if(t.startsWith('video/'))return'🎬';if(t.startsWith('audio/'))return'🎵';if(t.includes('pdf'))return'📕';if(t.includes('word')||f.name.endsWith('.docx'))return'📘';if(t.includes('sheet')||f.name.endsWith('.xlsx'))return'📗';if(t.includes('zip')||f.name.endsWith('.zip'))return'📦';if(t.startsWith('text/'))return'📝';return'📄';}
+function iconFor(f){const t=f.type||'';if(t.startsWith('image/'))return'IMG';if(t.startsWith('video/'))return'VID';if(t.startsWith('audio/'))return'AUD';if(t.includes('pdf'))return'PDF';if(t.includes('word')||f.name.endsWith('.docx'))return'DOC';if(t.includes('sheet')||f.name.endsWith('.xlsx'))return'XLS';if(t.includes('zip')||f.name.endsWith('.zip'))return'ZIP';if(t.startsWith('text/'))return'TXT';return'F';}
 function showPreview(f){
   currentFile=f;paid=false;compressedBlob=null;
   fpName.textContent=f.name;
@@ -26,14 +26,14 @@ function showPreview(f){
   const url=URL.createObjectURL(f);
   if(f.type.startsWith('image/')){const im=document.createElement('img');im.src=url;fpMedia.appendChild(im);}
   else if(f.type.startsWith('video/')){const v=document.createElement('video');v.src=url;v.controls=true;fpMedia.appendChild(v);}
-  else if(f.type.startsWith('audio/')){fpMedia.innerHTML='🎵';const a=document.createElement('audio');a.src=url;a.controls=true;a.style.width='100%';fpMedia.appendChild(a);}
+  else if(f.type.startsWith('audio/')){fpMedia.innerHTML='AUD';const a=document.createElement('audio');a.src=url;a.controls=true;a.style.width='100%';fpMedia.appendChild(a);}
   else{fpMedia.innerHTML=iconFor(f);}
   pressFile.querySelector('span').textContent=iconFor(f);
   filePreview.classList.remove('hidden');resultBox.classList.add('hidden');
   dropzone.style.display='none';setSteps(true,false,false);
   filePreview.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
-function resetAll(){currentFile=null;compressedBlob=null;paid=false;fileInput.value='';filePreview.classList.add('hidden');resultBox.classList.add('hidden');dropzone.style.display='';setSteps(true,false,false);downloadBtn.innerHTML='⬇ Télécharger le fichier compressé';}
+function resetAll(){currentFile=null;compressedBlob=null;paid=false;fileInput.value='';filePreview.classList.add('hidden');resultBox.classList.add('hidden');dropzone.style.display='';setSteps(true,false,false);downloadBtn.innerHTML='Télécharger le fichier compressé';}
 browseBtn.onclick=e=>{e.stopPropagation();fileInput.click();};
 dropzone.onclick=()=>fileInput.click();
 fileInput.onchange=e=>{if(e.target.files[0]){if(e.target.files[0].size>500*1024*1024){showToast('Fichier trop lourd (max 500 Mo).');return;}showPreview(e.target.files[0]);}};
@@ -97,10 +97,10 @@ function startCompression(){
       if(!resultat)return;
       clearInterval(attendre);
       compressedBlob=resultat.blob;compressedName=resultat.name;
-      pressBar.style.width='100%';pressPct.textContent='100%';pressStep.textContent='Terminé ✓';
+      pressBar.style.width='100%';pressPct.textContent='100%';pressStep.textContent='Terminé OK';
       setTimeout(()=>{
         compressModal.classList.add('hidden');showResult(currentFile.size,resultat.blob.size);
-        showToast('Compression terminée ✓');
+        showToast('Compression terminée OK');
       },650);
     },100);
   },TICK);
@@ -147,7 +147,7 @@ payClose.onclick=()=>payModal.classList.add('hidden');
 payModal.addEventListener('click',e=>{if(e.target===payModal)payModal.classList.add('hidden');});
 function chooseMethod(m){
   payMethod=m;methodChoice.classList.add('hidden');payForm.classList.remove('hidden');
-  chosenMethod.textContent=m==='momo'?'🟡 Paiement via MTN MoMo':'🟠 Paiement via Orange Money';
+  chosenMethod.textContent=m==='momo'?' Paiement via MTN MoMo':' Paiement via Orange Money';
   phoneInput.value='';phoneInput.focus();
 }
 payMomo.onclick=()=>chooseMethod('momo');
@@ -155,15 +155,24 @@ payOm.onclick=()=>chooseMethod('om');
 backMethods.onclick=()=>{payForm.classList.add('hidden');methodChoice.classList.remove('hidden');};
 confirmPay.onclick=()=>{
   const num=phoneInput.value.replace(/[\s.-]/g,'');
-  if(num.length<8){showToast('Entrez un numéro valide.');phoneInput.focus();return;}
-  phoneEcho.textContent=num;
+  const txEl=document.getElementById('txInput');
+  const tx=txEl?txEl.value.trim():'';
+  if(num.length<8){showToast('Entrez un numero valide.');phoneInput.focus();return;}
+  if(tx.length<4){showToast('Entrez l ID de transaction recu par SMS.');if(txEl)txEl.focus();return;}
+  const txEcho=document.getElementById('payTxEcho');
+  if(txEcho)txEcho.textContent='Transaction '+tx+' - '+num;
   payForm.classList.add('hidden');payProcessing.classList.remove('hidden');
-  setTimeout(()=>{
-    payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
-    if(payContext==='convert'){convPaid=true;convDownloadBtn.textContent='Telecharger le fichier converti';}
-    else{paid=true;downloadBtn.textContent='Telecharger le fichier compresse';}
-    setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
-  },3600);
+  fetch('/api/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({method:payMethod||'momo',number:num,txid:tx})})
+    .then(r=>r.json())
+    .then(d=>{
+      payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
+      paid=true;downloadBtn.textContent='Telecharger le fichier compresse';;
+      setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
+    })
+    .catch(()=>{
+      payProcessing.classList.add('hidden');payForm.classList.remove('hidden');
+      showToast('Serveur injoignable - reessayez.');
+    });
 };
 function doDownload(){
   if(payContext==='convert'){
