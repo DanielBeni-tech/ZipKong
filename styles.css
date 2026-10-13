@@ -152,10 +152,13 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:26px 0 40px}
 .conv-arrows span:nth-child(3){animation-delay:.3s}
 @keyframes convdots{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1.2)}}
 
-.logo-link{text-decoration:none;color:inherit;display:flex;align-items:center;gap:8px}
-.logo-svg{width:32px;height:32px;display:block}
-.logo-mark{background:none;width:auto;height:auto}
-.hero-small{padding:36px 16px 20px}
+.logo-link{text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px}
+.logo-svg{width:36px;height:36px;display:block}
+.logo-mark{background:linear-gradient(135deg,#000000 0% 60%,#333333 60% 100%);padding:2px;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 0 #000}
+.logo-mark text{fill:#fff;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:900}
+.badge{font-size:12px;font-weight:800;letter-spacing:1px;background:#000;color:#fff;padding:5px 12px;border-radius:24px}
+.choice-icon{font-size:14px;font-weight:900;background:linear-gradient(135deg,#000,#333333);color:#fff;width:54px;height:54px;display:grid;place-items:center;border-radius:16px;box-shadow:3px 3px 0 #000}
+.fmt-ico{font-size:13px;font-weight:900;background:linear-gradient(135deg,#000,#333333);color:#fff;width:46px;height:46px;display:grid;place-items:center;border-radius:14px;margin:0 auto;box-shadow:3px 3px 0 #000}
 .choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 .choice-card{background:#f4f4f4;border:2px solid #000;border-radius:16px;padding:26px 20px;text-decoration:none;color:#000;display:flex;flex-direction:column;gap:10px;transition:.2s;box-shadow:5px 5px 0 #000}
 .choice-card:hover{transform:translateY(-4px);box-shadow:8px 8px 0 #000}
@@ -168,3 +171,4 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:26px 0 40px}
 .win-note{background:#000;color:#fff;font-weight:700;padding:10px 14px;border-radius:12px;margin-top:10px;font-size:13px}
 .conv-opt.iso{background:#000;color:#fff;border-color:#000}
 @media(max-width:640px){.nav-links{display:none}.file-preview{flex-direction:column}.fp-media{width:100%;height:180px}.hero{padding-top:36px}.card{padding:18px;box-shadow:5px 5px 0 #000}.press-machine{transform:scale(.9)}}
+.ico{fill:none;stroke:#fff;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
