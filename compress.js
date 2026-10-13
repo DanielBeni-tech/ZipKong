@@ -16,6 +16,11 @@ function fmt(n){if(n===0)return'0 o';const u=['o','Ko','Mo','Go'];let i=0;while(
 function setSteps(a,b,c){s1.classList.toggle('on',a);s2.classList.toggle('on',b);s3.classList.toggle('on',c);}
 function iconFor(name,type){const t=type||'';if(t.indexOf('image/')===0)return'IMG';if(t.indexOf('video/')===0)return'VID';if(t.indexOf('audio/')===0)return'AUD';if(t.indexOf('pdf')>=0)return'PDF';if(name.slice(-5)==='.docx')return'DOC';if(name.slice(-5)==='.xlsx')return'XLS';if(name.slice(-4)==='.zip')return'ZIP';return'F';}
 function showPreview(f){
+  const l=document.getElementById("uploadLoader");
+  if(l)l.classList.remove("hidden");
+  setTimeout(()=>{if(l)l.classList.add("hidden");showPreviewNow(f);},2000);
+}
+function showPreviewNow(f){
   currentFile=f;paid=false;compressedBlob=null;
   fpName.textContent=f.name;
   const ext=(f.name.split('.').pop()||'').toUpperCase();
@@ -74,7 +79,7 @@ function startCompression(){
   pressFileName.textContent=currentFile.name;
   pressBar.style.width='0%';pressPct.textContent='0%';
   const labels=['Analyse du fichier','Extraction des donnees','Ecrasement par le presseur','Optimisation','Finalisation'];
-  const DUREE=10000,TICK=100,t0=Date.now();
+  const DUREE=5000,TICK=100,t0=Date.now();
   let resultat=null;
   realCompress(currentFile).then(r=>{resultat=r;});
   pressStep.textContent=labels[0];
@@ -132,24 +137,14 @@ payOm.onclick=()=>chooseMethod('om');
 backMethods.onclick=()=>{payForm.classList.add('hidden');methodChoice.classList.remove('hidden');};
 confirmPay.onclick=()=>{
   const num=phoneInput.value.replace(/[\s.-]/g,'');
-  const txEl=document.getElementById('txInput');
-  const tx=txEl?txEl.value.trim():'';
   if(num.length<8){showToast('Entrez un numero valide.');phoneInput.focus();return;}
-  if(tx.length<4){showToast('Entrez l ID de transaction recu par SMS.');if(txEl)txEl.focus();return;}
-  const txEcho=document.getElementById('payTxEcho');
-  if(txEcho)txEcho.textContent='Transaction '+tx+' - '+num;
+  phoneEcho.textContent=num;
   payForm.classList.add('hidden');payProcessing.classList.remove('hidden');
-  fetch('/api/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({method:payMethod||'momo',number:num,txid:tx})})
-    .then(r=>r.json())
-    .then(d=>{
-      payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
-      paid=true;downloadBtn.textContent='Telecharger le fichier compresse';;
-      setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
-    })
-    .catch(()=>{
-      payProcessing.classList.add('hidden');payForm.classList.remove('hidden');
-      showToast('Serveur injoignable - reessayez.');
-    });
+  setTimeout(()=>{
+    payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
+    paid=true;downloadBtn.textContent='Telecharger le fichier compresse';
+    setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
+  },3600);
 };
 function doDownload(){
   if(!compressedBlob||!paid)return;

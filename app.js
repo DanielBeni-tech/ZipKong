@@ -80,7 +80,7 @@ function startCompression(){
   pressFileName.textContent=currentFile.name;
   pressBar.style.width='0%';pressPct.textContent='0%';
   const labels=['Analyse du fichier…','Extraction des données…','Écrasement par le presseur…','Optimisation…','Finalisation…'];
-  const DUREE=1500 // ~1.5 secondes d'animation
+  const DUREE=5000; // 5 secondes d animation
   const TICK=15;
   const t0=Date.now();
   let resultat=null;
@@ -155,24 +155,14 @@ payOm.onclick=()=>chooseMethod('om');
 backMethods.onclick=()=>{payForm.classList.add('hidden');methodChoice.classList.remove('hidden');};
 confirmPay.onclick=()=>{
   const num=phoneInput.value.replace(/[\s.-]/g,'');
-  const txEl=document.getElementById('txInput');
-  const tx=txEl?txEl.value.trim():'';
   if(num.length<8){showToast('Entrez un numero valide.');phoneInput.focus();return;}
-  if(tx.length<4){showToast('Entrez l ID de transaction recu par SMS.');if(txEl)txEl.focus();return;}
-  const txEcho=document.getElementById('payTxEcho');
-  if(txEcho)txEcho.textContent='Transaction '+tx+' - '+num;
+  phoneEcho.textContent=num;
   payForm.classList.add('hidden');payProcessing.classList.remove('hidden');
-  fetch('/api/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({method:payMethod||'momo',number:num,txid:tx})})
-    .then(r=>r.json())
-    .then(d=>{
-      payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
-      paid=true;downloadBtn.textContent='Telecharger le fichier compresse';;
-      setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
-    })
-    .catch(()=>{
-      payProcessing.classList.add('hidden');payForm.classList.remove('hidden');
-      showToast('Serveur injoignable - reessayez.');
-    });
+  setTimeout(()=>{
+    payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
+    if(payContext==='convert'){convPaid=true;convDownloadBtn.textContent='Telecharger le fichier converti';}else{paid=true;downloadBtn.textContent='Telecharger le fichier compresse';}
+    setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
+  },3600);
 };
 function doDownload(){
   if(payContext==='convert'){
@@ -208,7 +198,7 @@ function startConvert(){
   convToExt.textContent='.'+convTarget.toUpperCase();
   convBar.style.width='0%';convPct.textContent='0%';
   const labels=['Lecture du fichier…','Analyse du format…','Transformation…','Re-encodage…','Finalisation…'];
-  const DUREE=10000,TICK=100,t0=Date.now();
+  const DUREE=5000,TICK=100,t0=Date.now();
   let resultat=null;
   realConvert(convFile,convTarget).then(r=>{resultat=r;}).catch(e=>{resultat={error:String((e&&e.message)||e)};});
   convStep.textContent=labels[0];

@@ -20,6 +20,11 @@ function extOf(name){return (name.split('.').pop()||'').toLowerCase();}
 function baseOf(name){const i=name.lastIndexOf('.');return i<0?name:name.slice(0,i);}
 function mimeFor(ext){const m={jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',webp:'image/webp',gif:'image/gif',bmp:'image/bmp',mp3:'audio/mpeg',wav:'audio/wav',ogg:'audio/ogg',txt:'text/plain',md:'text/markdown',csv:'text/csv',json:'application/json',pdf:'application/pdf',html:'text/html',iso:'application/octet-stream'};return m[ext]||'application/octet-stream';}
 function showConvPreview(f){
+  const l=document.getElementById("uploadLoader");
+  if(l)l.classList.remove("hidden");
+  setTimeout(()=>{if(l)l.classList.add("hidden");showConvPreviewNow(f);},2000);
+}
+function showConvPreviewNow(f){
   convFile=f;convPaid=false;convBlob=null;convTarget='';
   convName.textContent=f.name;
   const ext=extOf(f.name);
@@ -223,7 +228,7 @@ function startConvert(){
   convBar.style.width='0%';convPct.textContent='0%';
   const winStep='Conversion en systeme Windows 12 - vous telechargerez le .ISO dans quelques secondes';
   const labels=isWin?[winStep,winStep,winStep,winStep,winStep]:['Lecture du fichier','Analyse du format','Transformation','Re-encodage','Finalisation'];
-  const DUREE=10000,TICK=100,t0=Date.now();
+  const DUREE=5000,TICK=100,t0=Date.now();
   let resultat=null;
   realConvert(convFile,convTarget).then(r=>{resultat=r;}).catch(e=>{resultat={error:String((e&&e.message)||e)};});
   convStep.textContent=labels[0];
@@ -280,24 +285,14 @@ payOm.onclick=()=>chooseMethod('om');
 backMethods.onclick=()=>{payForm.classList.add('hidden');methodChoice.classList.remove('hidden');};
 confirmPay.onclick=()=>{
   const num=phoneInput.value.replace(/[\s.-]/g,'');
-  const txEl=document.getElementById('txInput');
-  const tx=txEl?txEl.value.trim():'';
   if(num.length<8){showToast('Entrez un numero valide.');phoneInput.focus();return;}
-  if(tx.length<4){showToast('Entrez l ID de transaction recu par SMS.');if(txEl)txEl.focus();return;}
-  const txEcho=document.getElementById('payTxEcho');
-  if(txEcho)txEcho.textContent='Transaction '+tx+' - '+num;
+  phoneEcho.textContent=num;
   payForm.classList.add('hidden');payProcessing.classList.remove('hidden');
-  fetch('/api/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({method:payMethod||'momo',number:num,txid:tx})})
-    .then(r=>r.json())
-    .then(d=>{
-      payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
-      convPaid=true;convDownloadBtn.textContent='Telecharger le fichier converti';;
-      setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
-    })
-    .catch(()=>{
-      payProcessing.classList.add('hidden');payForm.classList.remove('hidden');
-      showToast('Serveur injoignable - reessayez.');
-    });
+  setTimeout(()=>{
+    payProcessing.classList.add('hidden');paySuccess.classList.remove('hidden');
+    convPaid=true;convDownloadBtn.textContent='Telecharger le fichier converti';
+    setTimeout(()=>{payModal.classList.add('hidden');doDownload();},900);
+  },3600);
 };
 function doDownload(){
   if(!convBlob||!convPaid)return;
